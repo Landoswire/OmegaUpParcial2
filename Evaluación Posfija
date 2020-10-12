@@ -1,0 +1,80 @@
+import static java.lang.Math.pow;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+/**
+ *
+ * @author 
+ */
+public class Main {
+    public static void main(String[] args){
+        Scanner leer = new Scanner(System.in);
+        String linea = leer.nextLine();
+        pila pilita = new pila();
+        StringTokenizer cola = new StringTokenizer(linea);
+        while (cola.hasMoreTokens()) {
+            String car = cola.nextToken();
+            if("+".equals(car)||"-".equals(car)||"*".equals(car)||"/".equals(car)||"^".equals(car)){
+                int a = pilita.sacar();                    
+                int b = pilita.sacar();               
+                pilita.operar(a, b, car);
+            }else{
+                int num = Integer.parseInt(car);
+               
+                pilita.insertar(num);
+            }
+        }
+        System.out.println(pilita.sacar());
+    }
+   
+}
+class pila{
+    nodo inicio = null;
+    public void operar(int a, int b, String car){
+        int res;
+        switch(car){
+            case "+":
+                 res = a+b;
+                insertar(res);
+            break;
+            case "-":
+                res = b-a;
+                insertar(res);
+            break;
+            case "*":
+                res = a*b;
+                insertar(res);
+            break;
+            case "/":
+                res = b/a;
+                insertar(res);
+            break;
+            case "^":
+                res = (int) Math.pow(b, a);
+                insertar(res);
+            break;
+           
+        }
+    }
+    public int sacar(){
+        if(inicio!=null){
+            int num = inicio.dato;
+            inicio = inicio.sig;
+            return num;
+        }
+        return 0;       
+    }
+    public void insertar(int dato){
+        nodo nuevo = new nodo();
+        nuevo.dato=dato;
+        if(inicio == null){
+            inicio = nuevo;
+        }else{
+            nuevo.sig = inicio;
+            inicio = nuevo;
+        }
+    }
+}
+class nodo{
+    int dato;
+    nodo sig;
+}
