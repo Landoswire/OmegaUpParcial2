@@ -1,0 +1,20 @@
+import java.util.Scanner;
+public class Main {
+    
+    public static void main(String[] args){
+        Scanner leer = new Scanner(System.in);
+        int  num = leer.nextInt();
+        
+            int  factorial = factorial(num);
+            System.out.println(factorial);
+    }
+    static int factorial(int n){
+        
+        if(n<50){
+            return 2;
+        }
+        return factorial(n-1)+(factorial(n-5)*2);
+        
+    }
+    
+}
